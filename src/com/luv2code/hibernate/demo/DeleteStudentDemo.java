@@ -4,10 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.luv2code.hibernate.demo.entity.Employee;
 import com.luv2code.hibernate.demo.entity.Student;
 
-public class CreateStudentDemo {
+public class DeleteStudentDemo {
 
 	public static void main(String[] args) {
 		SessionFactory factory = new Configuration()
@@ -18,15 +17,23 @@ public class CreateStudentDemo {
 		Session session = factory.getCurrentSession();
 		
 		try {
-			System.out.println("Creating a new Student obj...");
-			Student tempStudent = new Student("Paul", "Wall", "paul@luv2code.com");
+			int studentId = 1;
 			
+			session = factory.getCurrentSession();
 			session.beginTransaction();
 			
-			System.out.println("Saving a student...");
-			session.save(tempStudent);
+			System.out.println("\nGetting student with id: " + studentId);
+			Student myStudent = session.get(Student.class, studentId);
 			
+//			System.out.println("Deleting Student: " + myStudent);
+//			session.delete(myStudent);
+			
+			System.out.println("Deleting Student: " + myStudent);
+			session.createQuery("delete from Student where id=2").executeUpdate();
+			
+			System.out.println("Get complete: " + myStudent);
 			session.getTransaction().commit();
+			
 			System.out.println("Done!");
 		} finally {
 			factory.close();

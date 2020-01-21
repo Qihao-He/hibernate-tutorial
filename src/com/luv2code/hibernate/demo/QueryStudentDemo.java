@@ -23,29 +23,24 @@ public class QueryStudentDemo {
 		try {
 			session.beginTransaction();
 			
-			List<Student> theStudents = session.createQuery("from Student").list();
+			List<Student> sl = session.createQuery("from Student").list();
+			displayStudents(sl);
 			
-			displayStudents(theStudents);
-			
-			theStudents = session.createQuery("from Student s where s.lastName='Doe'").list();
-			
+			sl = session.createQuery("from Student s where s.lastName='Doe'").list();
 			System.out.println("\n\nStudents who have last name of Doe");
-			displayStudents(theStudents);
+			displayStudents(sl);
 			
-			theStudents = session.createQuery("from Student s where s.lastName='Doe' OR s.firstName='Daffy'").list();
-			
+			sl = session.createQuery("from Student s where s.lastName='Doe' OR s.firstName='Daffy'").list();
 			System.out.println("\n\nStudents who have last name of Doe OR s.firstName='Daffy");
-			displayStudents(theStudents);
+			displayStudents(sl);
 			
-			theStudents = session.createQuery("from Student s where s.email LIKE '%luv2code.com'").list();
-			
+			sl = session.createQuery("from Student s where s.email LIKE '%luv2code.com'").list();
 			System.out.println("\n\nStudents who have s.email like '%luv2code.com'");
-			displayStudents(theStudents);
+			displayStudents(sl);
 			
-			theStudents = session.createQuery("from Student s where s.email LIKE '%gmail.com'").list();
-			
+			sl = session.createQuery("from Student s where s.email LIKE '%gmail.com'").list();
 			System.out.println("\n\nStudents who have s.email like '%gmail.com'");
-			displayStudents(theStudents);
+			displayStudents(sl);
 			
 			session.getTransaction().commit();
 			System.out.println("Done!");
@@ -54,9 +49,9 @@ public class QueryStudentDemo {
 		}
 	}
 
-	private static void displayStudents(List<Student> theStudents) {
-		for (Student tempStudent : theStudents) {
-			System.out.println(tempStudent);
+	private static void displayStudents(List<Student> sl) {
+		for (Student s : sl) {
+			System.out.println(s);
 		}
 	}
 
