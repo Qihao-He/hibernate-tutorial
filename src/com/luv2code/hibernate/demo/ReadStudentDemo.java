@@ -1,5 +1,8 @@
 package com.luv2code.hibernate.demo;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,7 +11,7 @@ import com.luv2code.hibernate.demo.entity.Student;
 
 public class ReadStudentDemo {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Student.class)
@@ -18,7 +21,12 @@ public class ReadStudentDemo {
 		
 		try {
 			System.out.println("Creating a new Student obj...");
-			Student tempStudent = new Student("Daffy", "Duck", "daffyu@luv2code.com");
+			String theDateOfBirthStr = "31/12/1998";
+			 
+            Date theDateOfBirth = DateUtils.parseDate(theDateOfBirthStr);
+	 
+            Student tempStudent = new Student("Daffy", "Duck", "daffyu@luv2code.com", theDateOfBirth);
+		
 			
 			session.beginTransaction();
 			
